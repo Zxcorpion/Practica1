@@ -4,7 +4,7 @@
 /**
  * @brief Constructor por defecto y parametrizado
  * @param int id_num numero de identificación de medicamento que por defecto es 0
- * @param string id_alpha numero otra forma de identificación del medicamento que por defecto es " "
+ * @param string id_alpha otra forma de identificación del medicamento que por defecto es " "
  * @param string nombre_ numero nombre del medicamento que por defecto es " "
  */
 PaMedicamento::PaMedicamento(int id_num_,std::string id_alpha_, std::string nombre_):
@@ -102,6 +102,7 @@ PaMedicamento &PaMedicamento::operator=(const PaMedicamento &orig) {
 bool PaMedicamento::operator==(const PaMedicamento &orig) const {
     return orig.id_num == this->id_num;
 }
+
 
 
 
