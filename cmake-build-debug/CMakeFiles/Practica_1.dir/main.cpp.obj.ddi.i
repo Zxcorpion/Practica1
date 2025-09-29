@@ -63955,6 +63955,12 @@ VDinamico<T>::VDinamico(unsigned int tamlog_):
 
     vector = new T[tamfis];
 }
+
+
+
+
+
+
 template<typename T>
 VDinamico<T>::VDinamico(const VDinamico &orig):
 tamlog(orig.tamlog),
@@ -63965,13 +63971,14 @@ tamfis(orig.tamfis)
         vector[i] = orig.vector[i];
     }
 }
+# 89 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h"
 template<typename T>
 VDinamico<T>::VDinamico(const VDinamico &orig, unsigned int posicionInicial, unsigned int numElementos) {
     if (posicionInicial + numElementos > orig.tamlog) {
-        throw std::out_of_range("Error en la copia parcial, se esta intentando copiar por fuera de los limites del vector");
+        throw std::out_of_range("Error en la copia parcial, se esta intentando copiar posiciones inexistentes");
     }
     if (posicionInicial >= orig.tamlog) {
-        throw std::out_of_range("Error en copia parcial, no hay datos en la posicion" + posicionInicial);
+        throw std::out_of_range("Error en copia parcial, se esta intentando copiar por fuera de los limites del vector");
     }
     tamlog = numElementos;
 
@@ -63985,6 +63992,13 @@ VDinamico<T>::VDinamico(const VDinamico &orig, unsigned int posicionInicial, uns
         vector[i] = orig.vector[posicionInicial + i];
     }
 }
+
+
+
+
+
+
+
 template<typename T>
 VDinamico<T> &VDinamico<T>::operator=(const VDinamico &orig) {
     if (&orig != this) {
@@ -64001,6 +64015,12 @@ VDinamico<T> &VDinamico<T>::operator=(const VDinamico &orig) {
     return (*this);
 }
 
+
+
+
+
+
+
 template<typename T>
 T &VDinamico<T>::operator[](unsigned int posicion) {
     if (posicion >= tamlog)
@@ -64009,12 +64029,17 @@ T &VDinamico<T>::operator[](unsigned int posicion) {
 }
 
 
+
+
+
+
+
 template<typename T>
 void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
     if (pos != 
-# 120 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h" 3 4
+# 153 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h" 3 4
               (0x7fffffff * 2U + 1U) 
-# 120 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h"
+# 153 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h"
                        && pos > tamlog) {
         throw std::out_of_range("Error al insertar, indice fuera de los limites");
     }
@@ -64029,9 +64054,9 @@ void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
         vector = aux;
     }
     if (pos == 
-# 133 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h" 3 4
+# 166 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h" 3 4
               (0x7fffffff * 2U + 1U)
-# 133 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h"
+# 166 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h"
                       ) {
         pos = tamlog;
     }else{
@@ -64042,7 +64067,7 @@ void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
     vector[pos] = dato;
     tamlog++;
 }
-
+# 184 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h"
 template<typename T>
 T VDinamico<T>::borrar(unsigned int pos) {
     if (tamlog == 0) {
@@ -64050,9 +64075,9 @@ T VDinamico<T>::borrar(unsigned int pos) {
     }
 
     if (pos == 
-# 150 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h" 3 4
+# 190 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h" 3 4
               (0x7fffffff * 2U + 1U)
-# 150 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h"
+# 190 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/VDinamico.h"
                       ) {
 
         pos = tamlog - 1;
@@ -64089,6 +64114,10 @@ template<typename T>
 unsigned int VDinamico<T>::tamlog_() const {
     return tamlog;
 }
+
+
+
+
 template<typename T>
 VDinamico<T>::~VDinamico() {
     if (!(vector != nullptr)) {
@@ -64096,6 +64125,11 @@ VDinamico<T>::~VDinamico() {
         vector = nullptr;
     }
 }
+
+
+
+
+
 
 template<typename T>
 int VDinamico<T>::busquedaBinaria(T &d) {
@@ -64212,7 +64246,7 @@ void mostrar(VDinamico<PaMedicamento*> &vector, const int &num) {
         std::cout<<"==============================================================="<<std::endl;
     }
 }
-# 87 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/main.cpp"
+# 86 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/main.cpp"
 unsigned long int contadorRepeticiones(VDinamico<PaMedicamento> &vMedicamentos, const int &tam) {
     int cont=0;
     bool encontrado = false;
@@ -64278,7 +64312,11 @@ int main(int argc, const char * argv[]) {
                 }
 
                 PaMedicamento medicamento(id_number,id_alpha,nombre);
-                vecMeds.insertar(medicamento);
+                try {
+                    vecMeds.insertar(medicamento);
+                }catch (std::out_of_range &e) {
+                    std::cerr<<e.what()<<std::endl;
+                }
 
                 fila="";
                 columnas.clear();
@@ -64293,9 +64331,9 @@ int main(int argc, const char * argv[]) {
         is.close();
 
         std::cout << "Tiempo de lectura: " << ((clock() - t_ini) / (float) 
-# 166 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/main.cpp" 3
+# 169 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/main.cpp" 3
                                                                           1000
-# 166 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/main.cpp"
+# 169 "C:/Users/pablo/Downloads/Segundo Curso/Estructuras/Practicas/Practica-1/main.cpp"
                                                                                         ) << " segs." << std::endl;
     } else {
         std::cout << "Error de apertura en archivo" << std::endl;

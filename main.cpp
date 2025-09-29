@@ -83,7 +83,6 @@ void mostrar(VDinamico<PaMedicamento*> &vector, const int &num) {
  * @return El numero de veces que se repite la primera palabra de un medicamento
  */
 
-//salen 822 segun david
 unsigned long int contadorRepeticiones(VDinamico<PaMedicamento> &vMedicamentos, const int &tam) {
     int cont=0;
     bool encontrado = false;
@@ -149,7 +148,11 @@ int main(int argc, const char * argv[]) {
                 }
 
                 PaMedicamento medicamento(id_number,id_alpha,nombre);
-                vecMeds.insertar(medicamento);
+                try {
+                    vecMeds.insertar(medicamento);
+                }catch (std::out_of_range &e) {
+                    std::cerr<<e.what()<<std::endl;
+                }
 
                 fila="";
                 columnas.clear();
