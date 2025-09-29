@@ -88,7 +88,6 @@ unsigned long int contadorRepeticiones(VDinamico<PaMedicamento> &vMedicamentos, 
     int cont=0;
     bool encontrado = false;
 
-
     for (int i=0; i< tam - 1; i++) {
         std::string nombre, nombre2, corte1, corte2;
         std::stringstream ss,ss2;
@@ -96,10 +95,8 @@ unsigned long int contadorRepeticiones(VDinamico<PaMedicamento> &vMedicamentos, 
         nombre2=vMedicamentos[i+1].get_nombre();
         ss.str(nombre);
         ss2.str(nombre2);
-        getline(ss,corte1, ' ');
-
+        getline(ss, corte1, ' ');
         getline(ss2,corte2, ' ');
-
 
         if (corte1 == corte2 && encontrado == false) {
             encontrado = true;

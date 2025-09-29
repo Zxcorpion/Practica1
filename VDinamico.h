@@ -48,7 +48,7 @@ tamlog(0) {
 /**
  * @brief Constructor parametrizado
  * @param tamlog_ Tamaño logico a insertar
- * @post
+ * @post Se crea un vector dinamico parametrizado con un tamaño logico
  */
 template<typename T>
 VDinamico<T>::VDinamico(unsigned int tamlog_):
@@ -61,6 +61,12 @@ VDinamico<T>::VDinamico(unsigned int tamlog_):
 
     vector = new T[tamfis];
 }
+
+/**
+ * @brief Constructor de copia
+ * @param orig Objeto que se quiere copiar
+ * @post Se crea un nuevo vector con los datos de orig
+ */
 template<typename T>
 VDinamico<T>::VDinamico(const VDinamico &orig):
 tamlog(orig.tamlog),
@@ -71,13 +77,22 @@ tamfis(orig.tamfis)
         vector[i] = orig.vector[i];
     }
 }
+
+/**
+ * @brief Constructor de copia parcial
+ * @param orig Objeto que se quiere copiar
+ * @param posicionInicial Posicion de inicio para copiar
+ * @param numElementos Numero de elementos que se quieren copiar
+ * @post El constructor copia los elementos de otro desde una posicion dada y copia un numero de elementos asignado
+ * @throw std::out_of_range Si se intenta acceder por fuera de los limites del vector
+ */
 template<typename T>
 VDinamico<T>::VDinamico(const VDinamico &orig, unsigned int posicionInicial, unsigned int numElementos) {
     if (posicionInicial + numElementos > orig.tamlog) {
-        throw std::out_of_range("Error en la copia parcial, se esta intentando copiar por fuera de los limites del vector");
+        throw std::out_of_range("Error en la copia parcial, se esta intentando copiar posiciones inexistentes");
     }
     if (posicionInicial >= orig.tamlog) {
-        throw std::out_of_range("Error en copia parcial, no hay datos en la posicion" + posicionInicial);
+        throw std::out_of_range("Error en copia parcial, se esta intentando copiar por fuera de los limites del vector");
     }
     tamlog = numElementos;
 
@@ -91,6 +106,13 @@ VDinamico<T>::VDinamico(const VDinamico &orig, unsigned int posicionInicial, uns
         vector[i] = orig.vector[posicionInicial + i];
     }
 }
+
+/**
+ * @brief Operador de asignacion
+ * @param orig Objeto a del que se extraen los datos
+ * @return Referencia al objeto mismo
+ * @post Los datos del vector son reemplazados por los de orig
+ */
 template<typename T>
 VDinamico<T> &VDinamico<T>::operator=(const VDinamico &orig) {
     if (&orig != this) { //Aqui compruebo que si lo que hay en orig no coincide con lo que hay en vector, borro lo que haya en vector y hago ya los cambios
@@ -107,6 +129,12 @@ VDinamico<T> &VDinamico<T>::operator=(const VDinamico &orig) {
     return (*this);
 }
 
+/**
+ * @brief Operador []
+ * @param posicion Posicion a la que queremos acceder
+ * @return Lo que se encuentra en esa posicion
+ * @throw std::out_of_range Si se intenta acceder por fuera de los limites del vector
+ */
 template<typename T>
 T &VDinamico<T>::operator[](unsigned int posicion) {
     if (posicion >= tamlog)
@@ -114,7 +142,12 @@ T &VDinamico<T>::operator[](unsigned int posicion) {
     return vector[posicion];
 }
 
-///corregir
+/**
+ *@brief El metodo isnerta un dato en una posicion indicada, en caso de quedarse sin espacio, se aumenta el tamaño del vector
+ * @param dato Dato que se quiere insertar
+ * @param pos Posicion sobre laque queremos insertar
+ * @throw std::out_of_range Si se intenta acceder por fuera de los limites del vector
+ */
 template<typename T>
 void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
     if (pos != UINT_MAX && pos > tamlog) { //Si me paso o si esta vacio
@@ -141,6 +174,13 @@ void VDinamico<T>::insertar(const T &dato, unsigned int pos) {
     tamlog++;
 }
 
+/**
+ * @brief El metodo se encarga de borrar el dato de una posicion, si un tercio de la capacidad total del vector esta vacio, este reduce su tamaño fisico a la mitad
+ * @param pos
+ * @return El dato eliminado
+ * @throw std::out_of_range Si se intenta eliminar un dato de un vector vacio
+ * @throw std::out_of_range Si se intenta eliminar un dato por fuera de los limites del vector
+ */
 template<typename T>
 T VDinamico<T>::borrar(unsigned int pos) {
     if (tamlog == 0) {
@@ -183,6 +223,10 @@ template<typename T>
 unsigned int VDinamico<T>::tamlog_() const {
     return tamlog;
 }
+
+/**
+ * @brief Destructor de la clase
+ */
 template<typename T>
 VDinamico<T>::~VDinamico() {
     if (!(vector != nullptr)) {
@@ -191,6 +235,11 @@ VDinamico<T>::~VDinamico() {
     }
 }
 
+/**
+ * @brief Se busca un dato partiendo de la mitad del vector, reduciendolo cada vez mas si no se encuentra dicho dato hasta que se encuentre
+ * @param d Dato que buscamos
+ * @return Dato encontrado
+ */
 template<typename T>
 int VDinamico<T>::busquedaBinaria(T &d) {
     int inf=0;

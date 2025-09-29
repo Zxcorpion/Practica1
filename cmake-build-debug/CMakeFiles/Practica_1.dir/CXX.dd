@@ -1,0 +1,5 @@
+ninja_dyndep_version = 1.0
+build CMakeFiles/Practica_1.dir/main.cpp.obj: dyndep
+
+build CMakeFiles/Practica_1.dir/PaMedicamento.cpp.obj: dyndep
+
